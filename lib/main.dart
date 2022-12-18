@@ -1,7 +1,13 @@
 import 'package:flame/components.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
+import 'package:flame/input.dart';
+import 'package:flame/palette.dart';
 import 'package:flame_forge2d/flame_forge2d.dart';
+import 'package:flame_playground/boundry_creator.dart';
+import 'package:flame_playground/my_girl.dart';
+import 'package:flame_playground/my_ground.dart';
+import 'package:flame_playground/my_platform.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -16,55 +22,51 @@ void main() {
   }));
 }
 
-class MyForge2DFlameGame extends Forge2DGame {
+class MyForge2DFlameGame extends Forge2DGame with HasDraggables, HasTappables {
+  late final JoystickComponent joystickComponent;
+  late final MyGirl myGirl;
+  late final HudButtonComponent shapeButton;
+
   @override
   Future<void> onLoad() async {
     await super.onLoad();
     debugMode = false;
-    add(MyCircle(Vector2(20, 3)));
-    add(MyCircle(Vector2(10, 3)));
-    add(MyGround(screenToWorld(camera.viewport.effectiveSize)));
+    var gameSize = screenToWorld(camera.viewport.effectiveSize);
+    addAll(createBoundaries(this));
+    add(MyPlatform(gameSize / 2));
+    add(MyGround(gameSize));
+
+
+    final knobPaint = BasicPalette.red.withAlpha(200).paint();
+    final backgroundPaint = BasicPalette.blue.withAlpha(100).paint();
+    joystickComponent = JoystickComponent(
+      knob: CircleComponent(radius: 30, paint: knobPaint),
+      background: CircleComponent(radius: 60, paint: backgroundPaint),
+      margin: const EdgeInsets.only(left: 40, bottom: 40),
+    );
+
+    myGirl = MyGirl(gameSize, joystickComponent);
+
+    final shapeButton = HudButtonComponent(
+        button: CircleComponent(radius: 20),
+        buttonDown: RectangleComponent(
+          size: Vector2(10, 10),
+          paint: BasicPalette.blue.paint(),
+        ),
+        margin: const EdgeInsets.only(
+          right: 85,
+          bottom: 150,
+        ),
+    );
+
+
+    add(myGirl);
+    add(shapeButton);
+    add(joystickComponent);
   }
-}
 
-class MyCircle extends BodyComponent {
-  final Vector2 initialPosition;
-
-  MyCircle(this.initialPosition);
-
-  @override
-  Future<void> onLoad() async {
-    await super.onLoad();
-    renderBody = false;
-    SpriteAnimationData spriteData =
-        SpriteAnimationData.sequenced(amount: 9, stepTime: 0.03, textureSize: Vector2(152.0, 142.0));
-    SpriteAnimation spriteAnimation = await gameRef.loadSpriteAnimation("red_girl/girl_gliding_sheet.png", spriteData);
-    var girlAnimation = SpriteAnimationComponent()
-      ..animation = spriteAnimation
-      ..size = Vector2.all(12)
-      ..anchor = Anchor.center;
-    add(girlAnimation);
-  }
-
-  @override
-  Body createBody() {
-    final shape = CircleShape()..radius = 6;
-    final fixtureDefinition = FixtureDef(shape, density: 1, restitution: 0.4, friction: 0.2);
-    final bodyDefinition = BodyDef(position: initialPosition, type: BodyType.dynamic);
-    return world.createBody(bodyDefinition)..createFixture(fixtureDefinition);
-  }
-}
-
-class MyGround extends BodyComponent {
-  final Vector2 gameSize;
-
-  MyGround(this.gameSize);
-
-  @override
-  Body createBody() {
-    final shape = EdgeShape()..set(Vector2(0, gameSize.y - 3), Vector2(gameSize.x, gameSize.y - 3));
-    final fixtureDefinition = FixtureDef(shape, friction: 1);
-    final bodyDefinition = BodyDef(position: Vector2.zero(), userData: this);
-    return world.createBody(bodyDefinition)..createFixture(fixtureDefinition);
-  }
+  // @override
+  // void update(double dt){
+  //   super.update(dt);
+  // }
 }
