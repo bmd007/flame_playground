@@ -34,7 +34,9 @@ class MyForge2DFlameGame extends Forge2DGame with HasDraggables, HasTappables {
     var gameSize = screenToWorld(camera.viewport.effectiveSize);
     addAll(createBoundaries(this));
     add(MyPlatform(gameSize / 2));
-    add(MyGround(gameSize));
+    add(MyPlatform(Vector2(gameSize.x/2, gameSize.y)));
+    add(MyPlatform(Vector2(gameSize.x/2, gameSize.y * 2)));
+    // add(MyGround(gameSize));
 
 
     final knobPaint = BasicPalette.red.withAlpha(200).paint();

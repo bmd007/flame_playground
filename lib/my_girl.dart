@@ -21,7 +21,7 @@ class MyGirl extends BodyComponent {
 
   MyGirl(Vector2 gameSize, this.joystick) {
     initialPosition = gameSize / 2;
-    groundLevel = gameSize.y - 3;
+    groundLevel = gameSize.y + 300 - 3;
     print(gameSize);
     print(groundLevel);
   }
@@ -97,6 +97,8 @@ class MyGirl extends BodyComponent {
       ..size = Vector2.all(12)
       ..anchor = Anchor.center;
     add(girlComponent);
+   camera.followBodyComponent(this, useCenterOfMass: false);
+   camera.zoom = 15;
   }
 
   @override
