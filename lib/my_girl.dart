@@ -13,7 +13,7 @@ class MyGirl extends BodyComponent {
   late SpriteAnimation idleAnimation;
   bool lookingTowardRight = true;
   bool landedSinceLastElevation = false;
-  final double speed = 800000;
+  final double speed = 20;
   JoystickComponent joystick;
   late Vector2 initialPosition;
   late double groundLevel;
@@ -21,7 +21,7 @@ class MyGirl extends BodyComponent {
 
   MyGirl(Vector2 gameSize, this.joystick) {
     initialPosition = gameSize / 2;
-    groundLevel = gameSize.y + 300 - 3;
+    groundLevel = gameSize.y + 0 - 3;
     print(gameSize);
     print(groundLevel);
   }
@@ -30,44 +30,31 @@ class MyGirl extends BodyComponent {
     var direction = joystick.direction;
     if (direction == JoystickDirection.down) {
       girlComponent.animation = idleAnimation;
-      return;
+      body.linearVelocity.x = 0;
     } else if (direction == JoystickDirection.downLeft || direction == JoystickDirection.left) {
       if (lookingTowardRight) {
         girlComponent.flipHorizontally();
       }
       lookingTowardRight = false;
-      girlComponent.animation = runningAnimation;
-      if(body.linearVelocity.y == 0){
-        body.applyLinearImpulse(Vector2(-1, 0) * dt * speed);
+      if (body.linearVelocity.y == 0) {
+        body.linearVelocity = Vector2(-speed, body.linearVelocity.y);
       }
+      girlComponent.animation = runningAnimation;
     } else if (direction == JoystickDirection.downRight || direction == JoystickDirection.right) {
       if (!lookingTowardRight) {
         girlComponent.flipHorizontally();
       }
       lookingTowardRight = true;
-      girlComponent.animation = runningAnimation;
-      if(body.linearVelocity.y == 0) {
-        body.applyLinearImpulse(Vector2(1, 0) * dt * speed);
+      if (body.linearVelocity.y == 0) {
+        body.linearVelocity = Vector2(speed, body.linearVelocity.y);
       }
-    } else if (direction == JoystickDirection.up && landedSinceLastElevation) {
-      landedSinceLastElevation = false;
-      body.applyLinearImpulse(Vector2(0, 1) * dt * speed * 1);
-    } else if (direction == JoystickDirection.upRight && landedSinceLastElevation) {
-      landedSinceLastElevation = false;
-      if (!lookingTowardRight) {
-        girlComponent.flipHorizontally();
-      }
-      lookingTowardRight = true;
       girlComponent.animation = runningAnimation;
-      body.applyLinearImpulse(Vector2(1, 1) * dt * speed * 1);
-    } else if (direction == JoystickDirection.upLeft && landedSinceLastElevation) {
+    } else if ((direction == JoystickDirection.up ||
+            direction == JoystickDirection.upRight ||
+            direction == JoystickDirection.upLeft) &&
+        landedSinceLastElevation) {
       landedSinceLastElevation = false;
-      if (lookingTowardRight) {
-        girlComponent.flipHorizontally();
-      }
-      lookingTowardRight = false;
-      girlComponent.animation = runningAnimation;
-      body.applyLinearImpulse(Vector2(-1, 1) * dt * speed * 1);
+      body.applyLinearImpulse(Vector2(0, 10000));
     }
   }
 
@@ -77,13 +64,15 @@ class MyGirl extends BodyComponent {
     body.angularVelocity = 0;
     landedSinceLastElevation = body.linearVelocity.y == 0;
 
-    if (body.linearVelocity.isZero() || (body.position.y < groundLevel) && (body.position.y > groundLevel - 10)) {
-      girlComponent.animation = idleAnimation;
-    } else if (body.linearVelocity.y > 0 && !(body.position.y > groundLevel - 5)) {
-      girlComponent.animation = glidingAnimation;
+    if (body.linearVelocity.y <= 0) {
+      girlComponent.animation = idleAnimation; //taking off
+    } else if (body.linearVelocity.y > 3) {
+      girlComponent.animation = glidingAnimation; //diving
     }
     if (!joystick.delta.isZero()) {
       move(dt);
+    } else {
+      body.linearVelocity.x = 0;
     }
   }
 
@@ -97,7 +86,7 @@ class MyGirl extends BodyComponent {
 
     girlComponent = SpriteAnimationComponent()
       ..animation = idleAnimation
-      ..size = Vector2.all(12)
+      ..size = Vector2.all(6)
       ..anchor = Anchor.center;
     add(girlComponent);
    camera.followBodyComponent(this, useCenterOfMass: false);
@@ -106,8 +95,8 @@ class MyGirl extends BodyComponent {
 
   @override
   Body createBody() {
-    final shape = PolygonShape()..setAsBoxXY(6, 6);
-    final fixtureDefinition = FixtureDef(shape, density: 1, restitution: 0.01, friction: 9);
+    final shape = PolygonShape()..setAsBoxXY(3, 3);
+    final fixtureDefinition = FixtureDef(shape, density: 2, restitution: 0.1, friction: 2);
     final bodyDefinition = BodyDef(position: initialPosition, type: BodyType.dynamic);
     return world.createBody(bodyDefinition)..createFixture(fixtureDefinition);
   }

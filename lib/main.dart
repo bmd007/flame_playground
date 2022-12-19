@@ -6,7 +6,6 @@ import 'package:flame/palette.dart';
 import 'package:flame_forge2d/flame_forge2d.dart';
 import 'package:flame_playground/boundry_creator.dart';
 import 'package:flame_playground/my_girl.dart';
-import 'package:flame_playground/my_ground.dart';
 import 'package:flame_playground/my_platform.dart';
 import 'package:flutter/material.dart';
 
@@ -31,13 +30,12 @@ class MyForge2DFlameGame extends Forge2DGame with HasDraggables, HasTappables {
   Future<void> onLoad() async {
     await super.onLoad();
     debugMode = false;
-    var gameSize = screenToWorld(camera.viewport.effectiveSize);
+    var screenSize = screenToWorld(camera.viewport.effectiveSize);
     addAll(createBoundaries(this));
-    add(MyPlatform(gameSize / 2));
-    add(MyPlatform(Vector2(gameSize.x/2, gameSize.y)));
-    add(MyPlatform(Vector2(gameSize.x/2, gameSize.y * 2)));
-    // add(MyGround(gameSize));
-
+    // add(MyPlatform(screenSize / 2));
+    // add(MyPlatform(Vector2(screenSize.x / 2, screenSize.y)));
+    // add(MyPlatform(Vector2(screenSize.x / 2, screenSize.y * 2)));
+    // add(MyGround(screenSize));
 
     final knobPaint = BasicPalette.red.withAlpha(200).paint();
     final backgroundPaint = BasicPalette.blue.withAlpha(100).paint();
@@ -47,18 +45,18 @@ class MyForge2DFlameGame extends Forge2DGame with HasDraggables, HasTappables {
       margin: const EdgeInsets.only(left: 40, bottom: 40),
     );
 
-    myGirl = MyGirl(gameSize, joystickComponent);
+    myGirl = MyGirl(screenSize, joystickComponent);
 
     final shapeButton = HudButtonComponent(
-        button: CircleComponent(radius: 20),
-        buttonDown: RectangleComponent(
-          size: Vector2(10, 10),
-          paint: BasicPalette.blue.paint(),
-        ),
-        margin: const EdgeInsets.only(
-          right: 85,
-          bottom: 150,
-        ),
+      button: CircleComponent(radius: 20),
+      buttonDown: RectangleComponent(
+        size: Vector2(10, 10),
+        paint: BasicPalette.blue.paint(),
+      ),
+      margin: const EdgeInsets.only(
+        right: 85,
+        bottom: 150,
+      ),
     );
 
 
