@@ -20,7 +20,7 @@ class MyPlatform extends BodyComponent {
   @override
   Body createBody() {
     PolygonShape shape = PolygonShape()..setAsBoxXY(12, 1);
-    final fixtureDefinition = FixtureDef(shape, density: 1, restitution: 0.4, friction: 0.2);
+    final fixtureDefinition = FixtureDef(shape, density: 2, restitution: 0.1, friction: 9);
     final bodyDefinition = BodyDef(position: position, type: BodyType.static);
     return world.createBody(bodyDefinition)..createFixture(fixtureDefinition);
   }
