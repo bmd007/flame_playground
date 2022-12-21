@@ -17,14 +17,12 @@ class MyForge2DFlameGame extends Forge2DGame with HasDraggables, HasTappables {
   @override
   Future<void> onLoad() async {
     await super.onLoad();
-    debugMode = false;
+    debugMode = true;
     var screenSize = screenToWorld(camera.viewport.effectiveSize);
     print(screenSize);
     addAll(createBoundaries(this));
-    for (double i = 0; i <= 87; i = i + 10) {
-      // for (double j = 0; j + 15>= screenSize.y; j = j + 15) {
+    for (double i = 0; i <= 87; i = i + 7) {
         add(MyPlatform(Vector2(87-i, 87-i)));
-      // }
     }
     // add(MyPlatform(Vector2(0,screenSize.y)));
     // add(MyPlatform(Vector2(1,screenSize.y-1)));

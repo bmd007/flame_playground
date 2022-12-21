@@ -52,7 +52,7 @@ class MyGirl extends BodyComponent {
       girlComponent.animation = runningAnimation;
     } else if (direction == JoystickDirection.up && landedSinceLastElevation) {
       landedSinceLastElevation = false;
-      body.applyLinearImpulse(Vector2(0, 12000));
+      body.applyLinearImpulse(Vector2(0, -1200));
     } else if (direction == JoystickDirection.upLeft && landedSinceLastElevation) {
       if (lookingTowardRight) {
         girlComponent.flipHorizontally();
@@ -60,7 +60,8 @@ class MyGirl extends BodyComponent {
       lookingTowardRight = false;
       landedSinceLastElevation = false;
       body.linearVelocity.x = 0;
-      body.applyLinearImpulse(Vector2(-10000, 11000));
+      print(joystick.relativeDelta);
+      body.applyLinearImpulse(Vector2(joystick.relativeDelta.x * 1000, joystick.relativeDelta.y * 1000));
     } else if (direction == JoystickDirection.upRight && landedSinceLastElevation) {
       if (!lookingTowardRight) {
         girlComponent.flipHorizontally();
@@ -68,8 +69,7 @@ class MyGirl extends BodyComponent {
       lookingTowardRight = true;
       body.linearVelocity.x = 0;
       landedSinceLastElevation = false;
-      print(joystick.relativeDelta);
-      body.applyLinearImpulse(Vector2(10000, 11000));
+      body.applyLinearImpulse(Vector2(joystick.relativeDelta.x * 1000, joystick.relativeDelta.y * 1000));
     }
   }
 
