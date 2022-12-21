@@ -19,14 +19,10 @@ class MyGirl extends BodyComponent {
   final double speed = 20;
   JoystickComponent joystick;
   late Vector2 initialPosition;
-  late double groundLevel;
   late SpriteAnimationComponent girlComponent;
 
   MyGirl(Vector2 gameSize, this.joystick) {
     initialPosition = gameSize / 2;
-    groundLevel = gameSize.y + 0 - 3;
-    print(gameSize);
-    print(groundLevel);
   }
 
   void move(double dt) {
@@ -58,12 +54,21 @@ class MyGirl extends BodyComponent {
       landedSinceLastElevation = false;
       body.applyLinearImpulse(Vector2(0, 12000));
     } else if (direction == JoystickDirection.upLeft && landedSinceLastElevation) {
+      if (lookingTowardRight) {
+        girlComponent.flipHorizontally();
+      }
+      lookingTowardRight = false;
       landedSinceLastElevation = false;
       body.linearVelocity.x = 0;
       body.applyLinearImpulse(Vector2(-10000, 11000));
     } else if (direction == JoystickDirection.upRight && landedSinceLastElevation) {
+      if (!lookingTowardRight) {
+        girlComponent.flipHorizontally();
+      }
+      lookingTowardRight = true;
       body.linearVelocity.x = 0;
       landedSinceLastElevation = false;
+      print(joystick.relativeDelta);
       body.applyLinearImpulse(Vector2(10000, 11000));
     }
   }
