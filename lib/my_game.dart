@@ -6,7 +6,7 @@ import 'package:flame_forge2d/flame_forge2d.dart';
 import 'package:flame_playground/my_girl_kanui.dart';
 import 'package:flutter/material.dart';
 
-import 'boundry_creator.dart';
+import 'boundary_creator.dart';
 import 'my_girl.dart';
 import 'my_platform.dart';
 
