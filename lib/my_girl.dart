@@ -1,5 +1,6 @@
 import 'package:flame/components.dart';
 import 'package:flame_forge2d/flame_forge2d.dart';
+import 'package:flame_playground/my_girl_kanui.dart';
 
 class MyGirl extends BodyComponent {
   SpriteAnimationData glidingAnimationData =
@@ -19,7 +20,7 @@ class MyGirl extends BodyComponent {
   final double speed = 20;
   JoystickComponent joystick;
   late Vector2 initialPosition;
-  late SpriteAnimationComponent girlComponent;
+  late SpriteAnimationComponent component;
 
   MyGirl(Vector2 gameSize, this.joystick) {
     initialPosition = gameSize / 2;
@@ -28,34 +29,34 @@ class MyGirl extends BodyComponent {
   void move(double dt) {
     var direction = joystick.direction;
     if (direction == JoystickDirection.down) {
-      girlComponent.animation = idleAnimation;
-      if(landedSinceLastElevation){
+      component.animation = idleAnimation;
+      if (landedSinceLastElevation) {
         body.linearVelocity.x = 0;
       }
     } else if (direction == JoystickDirection.downLeft || direction == JoystickDirection.left) {
       if (lookingTowardRight) {
-        girlComponent.flipHorizontally();
+        component.flipHorizontally();
       }
       lookingTowardRight = false;
       if (body.linearVelocity.y == 0) {
         body.linearVelocity = Vector2(-speed, body.linearVelocity.y);
       }
-      girlComponent.animation = runningAnimation;
+      component.animation = runningAnimation;
     } else if (direction == JoystickDirection.downRight || direction == JoystickDirection.right) {
       if (!lookingTowardRight) {
-        girlComponent.flipHorizontally();
+        component.flipHorizontally();
       }
       lookingTowardRight = true;
       if (body.linearVelocity.y == 0) {
         body.linearVelocity = Vector2(speed, body.linearVelocity.y);
       }
-      girlComponent.animation = runningAnimation;
+      component.animation = runningAnimation;
     } else if (direction == JoystickDirection.up && landedSinceLastElevation) {
       landedSinceLastElevation = false;
       body.applyLinearImpulse(Vector2(0, -1200));
     } else if (direction == JoystickDirection.upLeft && landedSinceLastElevation) {
       if (lookingTowardRight) {
-        girlComponent.flipHorizontally();
+        component.flipHorizontally();
       }
       lookingTowardRight = false;
       landedSinceLastElevation = false;
@@ -64,7 +65,7 @@ class MyGirl extends BodyComponent {
       body.applyLinearImpulse(Vector2(joystick.relativeDelta.x * 1000, joystick.relativeDelta.y * 1000));
     } else if (direction == JoystickDirection.upRight && landedSinceLastElevation) {
       if (!lookingTowardRight) {
-        girlComponent.flipHorizontally();
+        component.flipHorizontally();
       }
       lookingTowardRight = true;
       body.linearVelocity.x = 0;
@@ -76,15 +77,14 @@ class MyGirl extends BodyComponent {
   @override
   void update(double dt) {
     super.update(dt);
-    body.angularVelocity = 0;
     landedSinceLastElevation = body.linearVelocity.y == 0;
 
     if (body.linearVelocity.y == 0) {
-      girlComponent.animation = idleAnimation;
+      component.animation = idleAnimation;
     } else if (body.linearVelocity.y < -5) {
-      girlComponent.animation = jumpingAnimation;
+      component.animation = jumpingAnimation;
     } else if (body.linearVelocity.y > 5) {
-      girlComponent.animation = glidingAnimation;
+      component.animation = glidingAnimation;
     }
     if (!joystick.delta.isZero()) {
       move(dt);
@@ -102,13 +102,13 @@ class MyGirl extends BodyComponent {
     idleAnimation = await gameRef.loadSpriteAnimation("red_girl/idle_spriteSheet.png", idleAnimationData);
     jumpingAnimation = await gameRef.loadSpriteAnimation("red_girl/jumping_spriteSheet.png", jumpingAnimationData);
 
-    girlComponent = SpriteAnimationComponent()
+    component = SpriteAnimationComponent()
       ..animation = idleAnimation
       ..size = Vector2.all(6)
       ..anchor = Anchor.center;
-    add(girlComponent);
-   camera.followBodyComponent(this, useCenterOfMass: false);
-   camera.zoom = 15;
+    add(component);
+    camera.followBodyComponent(this, useCenterOfMass: false);
+    camera.zoom = 15;
   }
 
   @override
@@ -117,5 +117,20 @@ class MyGirl extends BodyComponent {
     final fixtureDefinition = FixtureDef(shape, density: 2, restitution: 0.1, friction: 2);
     final bodyDefinition = BodyDef(position: initialPosition, type: BodyType.dynamic)..fixedRotation = true;
     return world.createBody(bodyDefinition)..createFixture(fixtureDefinition);
+  }
+
+  late MyGirlKanui kanui;
+
+  void throwKanui() {
+    var initialKanuiPosition = lookingTowardRight
+        ? Vector2(center.x + (component.width / 2), center.y)
+        : Vector2(center.x - (component.width / 2), center.y);
+    kanui = MyGirlKanui(initialKanuiPosition);
+    add(kanui)!.asStream().forEach((element) {
+      print(center);
+      print(kanui.center);
+      // var kanuiImpluse = lookingTowardRight ? Vector2(10, 0) : Vector2(-10, 0);
+      // kanui.body.linearVelocity = kanuiImpluse;
+    });
   }
 }
