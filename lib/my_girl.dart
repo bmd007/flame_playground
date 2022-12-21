@@ -33,7 +33,9 @@ class MyGirl extends BodyComponent {
     var direction = joystick.direction;
     if (direction == JoystickDirection.down) {
       girlComponent.animation = idleAnimation;
-      body.linearVelocity.x = 0;
+      if(landedSinceLastElevation){
+        body.linearVelocity.x = 0;
+      }
     } else if (direction == JoystickDirection.downLeft || direction == JoystickDirection.left) {
       if (lookingTowardRight) {
         girlComponent.flipHorizontally();
@@ -52,12 +54,17 @@ class MyGirl extends BodyComponent {
         body.linearVelocity = Vector2(speed, body.linearVelocity.y);
       }
       girlComponent.animation = runningAnimation;
-    } else if ((direction == JoystickDirection.up ||
-            direction == JoystickDirection.upRight ||
-            direction == JoystickDirection.upLeft) &&
-        landedSinceLastElevation) {
+    } else if (direction == JoystickDirection.up && landedSinceLastElevation) {
       landedSinceLastElevation = false;
-      body.applyLinearImpulse(Vector2(0, 10000));
+      body.applyLinearImpulse(Vector2(0, 12000));
+    } else if (direction == JoystickDirection.upLeft && landedSinceLastElevation) {
+      landedSinceLastElevation = false;
+      body.linearVelocity.x = 0;
+      body.applyLinearImpulse(Vector2(-10000, 11000));
+    } else if (direction == JoystickDirection.upRight && landedSinceLastElevation) {
+      body.linearVelocity.x = 0;
+      landedSinceLastElevation = false;
+      body.applyLinearImpulse(Vector2(10000, 11000));
     }
   }
 
@@ -76,7 +83,7 @@ class MyGirl extends BodyComponent {
     }
     if (!joystick.delta.isZero()) {
       move(dt);
-    } else {
+    } else if (landedSinceLastElevation){
       body.linearVelocity.x = 0;
     }
   }
@@ -103,7 +110,7 @@ class MyGirl extends BodyComponent {
   Body createBody() {
     final shape = PolygonShape()..setAsBoxXY(3, 3);
     final fixtureDefinition = FixtureDef(shape, density: 2, restitution: 0.1, friction: 2);
-    final bodyDefinition = BodyDef(position: initialPosition, type: BodyType.dynamic);
+    final bodyDefinition = BodyDef(position: initialPosition, type: BodyType.dynamic)..fixedRotation = true;
     return world.createBody(bodyDefinition)..createFixture(fixtureDefinition);
   }
 }
