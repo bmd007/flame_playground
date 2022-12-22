@@ -30,7 +30,7 @@ class MyForge2DFlameGame extends Forge2DGame with HasDraggables, HasTappables {
     );
     await add(joystickComponent);
 
-    myGirl = MyGirl(screenSize, joystickComponent);
+    myGirl = MyGirl(joystickComponent, screenSize/2);
     add(myGirl);
 
     final shapeButton = HudButtonComponent(
@@ -49,6 +49,16 @@ class MyForge2DFlameGame extends Forge2DGame with HasDraggables, HasTappables {
 
     add(shapeButton);
 
-    add(Enemy(screenSize/2 + Vector2(222, 0)));
+    add(Enemy(screenSize/2));
+    add(Enemy(screenSize/2));
+    add(Enemy(screenSize/2));
+    add(Enemy(screenSize/2));
+    add(Enemy(screenSize/2));
+    add(Enemy(screenSize/2));
+    add(Enemy(screenSize/2));
+    add(Enemy(screenSize/2));
+    add(Enemy(screenSize/2));
+    add(Enemy(screenSize/2));
+    add(Enemy(screenSize / 2));
   }
 }

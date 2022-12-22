@@ -12,7 +12,7 @@ class MyGirl extends BodyComponent {
   SpriteAnimationData idleAnimationData =
       SpriteAnimationData.sequenced(amount: 9, stepTime: 0.03, textureSize: Vector2(290.0, 500.0));
   SpriteAnimationData jumpingAnimationData =
-      SpriteAnimationData.sequenced(amount: 9, stepTime: 0.03, textureSize: Vector2(399.0, 543.0));
+  SpriteAnimationData.sequenced(amount: 9, stepTime: 0.03, textureSize: Vector2(399.0, 543.0));
   late SpriteAnimation glidingAnimation;
   late SpriteAnimation runningAnimation;
   late SpriteAnimation idleAnimation;
@@ -20,14 +20,12 @@ class MyGirl extends BodyComponent {
   bool lookingTowardRight = true;
   bool landedSinceLastElevation = false;
   final double speed = 20;
-  JoystickComponent joystick;
-  late Vector2 initialPosition;
+  final JoystickComponent joystick;
+  final Vector2 initialPosition;
   late SpriteAnimationComponent component;
   Queue<MyGirlKanui> kanuies = Queue<MyGirlKanui>();
 
-  MyGirl(Vector2 gameSize, this.joystick) {
-    initialPosition = gameSize / 2;
-  }
+  MyGirl(this.joystick, this.initialPosition);
 
   void move(double dt) {
     var direction = joystick.direction;
@@ -111,15 +109,36 @@ class MyGirl extends BodyComponent {
       ..anchor = Anchor.center;
     add(component);
     camera.followBodyComponent(this, useCenterOfMass: false);
-    camera.zoom = 15;
+    camera.zoom = 9;
 
-    kanuies.add(MyGirlKanui(initialPosition));
-    kanuies.add(MyGirlKanui(initialPosition));
-    kanuies.add(MyGirlKanui(initialPosition));
-    kanuies.add(MyGirlKanui(initialPosition));
-    kanuies.add(MyGirlKanui(initialPosition));
-    kanuies.add(MyGirlKanui(initialPosition));
-    kanuies.add(MyGirlKanui(initialPosition));
+    kanuies.add(MyGirlKanui());
+    kanuies.add(MyGirlKanui());
+    kanuies.add(MyGirlKanui());
+    kanuies.add(MyGirlKanui());
+    kanuies.add(MyGirlKanui());
+    kanuies.add(MyGirlKanui());
+    kanuies.add(MyGirlKanui());
+    kanuies.add(MyGirlKanui());
+    kanuies.add(MyGirlKanui());
+    kanuies.add(MyGirlKanui());
+    kanuies.add(MyGirlKanui());
+    kanuies.add(MyGirlKanui());
+    kanuies.add(MyGirlKanui());
+    kanuies.add(MyGirlKanui());
+    kanuies.add(MyGirlKanui());
+    kanuies.add(MyGirlKanui());
+    kanuies.add(MyGirlKanui());
+    kanuies.add(MyGirlKanui());
+    kanuies.add(MyGirlKanui());
+    kanuies.add(MyGirlKanui());
+    kanuies.add(MyGirlKanui());
+    kanuies.add(MyGirlKanui());
+    kanuies.add(MyGirlKanui());
+    kanuies.add(MyGirlKanui());
+    kanuies.add(MyGirlKanui());
+    kanuies.add(MyGirlKanui());
+    kanuies.add(MyGirlKanui());
+    kanuies.add(MyGirlKanui());
   }
 
   @override
@@ -133,9 +152,10 @@ class MyGirl extends BodyComponent {
   throwKanui() async {
     if (kanuies.isNotEmpty) {
       var kanui = kanuies.removeFirst();
+      kanui.initialPosition = body.position;
       await parent?.add(kanui);
-      kanui.component.position = component.position;
-      kanui.body.linearVelocity.x = lookingTowardRight ? 30 : -30;
+      kanui.body.linearVelocity.x = lookingTowardRight ? 60 : -60;
+      kanui.body.linearVelocity.y = 0;
     }
   }
 }

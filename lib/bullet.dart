@@ -11,7 +11,7 @@ class Bullet extends BodyComponent {
     await super.onLoad();
     renderBody = false;
     component = SpriteComponent()
-      ..sprite = await gameRef.loadSprite("TeamGunner/CHARACTER_SPRITES/BulletStream.png", srcSize: Vector2(80, 16))
+      ..sprite = await gameRef.loadSprite("TeamGunner/EXTRAS/BulletStream.png", srcSize: Vector2(80, 16))
       ..size = Vector2(2,1)
       ..anchor = Anchor.center;
     add(component);

@@ -2,9 +2,8 @@ import 'package:flame/components.dart';
 import 'package:flame_forge2d/flame_forge2d.dart';
 
 class MyGirlKanui extends BodyComponent {
-  final Vector2 initialPosition;
+  late Vector2 initialPosition;
   late SpriteComponent component;
-  MyGirlKanui(this.initialPosition);
 
   @override
   Future<void> onLoad() async {
