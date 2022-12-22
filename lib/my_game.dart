@@ -41,18 +41,18 @@ class MyForge2DFlameGame extends Forge2DGame with HasDraggables, HasTappables {
 
     final shapeButton = HudButtonComponent(
       button: CircleComponent(radius: 20),
-      buttonDown: RectangleComponent(
-        size: Vector2(10, 10),
-        paint: BasicPalette.blue.paint(),
-      ),
-      margin: const EdgeInsets.only(
-        right: 85,
-        bottom: 150,
-      ),
-        onPressed: () {myGirl.throwKanui();
-      world.bodies.where((element) => element.isBullet()).forEach((element) => element.linearVelocity.x = 30);
-      }
-    );
+        buttonDown: RectangleComponent(
+          size: Vector2(10, 10),
+          paint: BasicPalette.blue.paint(),
+        ),
+        margin: const EdgeInsets.only(
+          right: 85,
+          bottom: 150,
+        ),
+        onPressed: () {
+          myGirl.throwKanui();
+          world.bodies.where((element) => element.isBullet()).forEach((element) => element.linearVelocity.x = 30);
+        });
 
     add(shapeButton);
 
