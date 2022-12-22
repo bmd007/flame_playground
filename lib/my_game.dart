@@ -18,12 +18,12 @@ class MyForge2DFlameGame extends Forge2DGame with HasDraggables, HasTappables {
   @override
   Future<void> onLoad() async {
     await super.onLoad();
-    debugMode = true;
+    debugMode = false;
     var screenSize = screenToWorld(camera.viewport.effectiveSize);
     print(screenSize);
     addAll(createBoundaries(this));
-    for (double i = 0; i <= 87; i = i + 7) {
-      add(MyPlatform(Vector2(87 - i, 87 - i)));
+    for (double i = 0; i <= 95; i = i + 3) {
+      add(MyPlatform(Vector2(95 - i - i%2, 95 - i + i%3)));
     }
 
     final knobPaint = BasicPalette.red.withAlpha(200).paint();
@@ -48,8 +48,8 @@ class MyForge2DFlameGame extends Forge2DGame with HasDraggables, HasTappables {
           right: 85,
           bottom: 150,
         ),
-        onPressed: () {
-          myGirl.throwKanui();
+        onPressed: () async {
+          await myGirl.throwKanui();
           // world.bodies.where((element) => element.isBullet()).forEach((element) => element.linearVelocity.x = 30);
         });
 

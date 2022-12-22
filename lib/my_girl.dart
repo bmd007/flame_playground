@@ -65,7 +65,7 @@ class MyGirl extends BodyComponent {
       landedSinceLastElevation = false;
       body.linearVelocity.x = 0;
       print(joystick.relativeDelta);
-      body.applyLinearImpulse(Vector2(joystick.relativeDelta.x * 1000, joystick.relativeDelta.y * 1000));
+      body.applyLinearImpulse(Vector2(joystick.relativeDelta.x * 1200, joystick.relativeDelta.y * 1200));
     } else if (direction == JoystickDirection.upRight && landedSinceLastElevation) {
       if (!lookingTowardRight) {
         component.flipHorizontally();
@@ -73,7 +73,7 @@ class MyGirl extends BodyComponent {
       lookingTowardRight = true;
       body.linearVelocity.x = 0;
       landedSinceLastElevation = false;
-      body.applyLinearImpulse(Vector2(joystick.relativeDelta.x * 1000, joystick.relativeDelta.y * 1000));
+      body.applyLinearImpulse(Vector2(joystick.relativeDelta.x * 1200, joystick.relativeDelta.y * 1200));
     }
   }
 
@@ -127,9 +127,12 @@ class MyGirl extends BodyComponent {
     return world.createBody(bodyDefinition)..createFixture(fixtureDefinition);
   }
 
-  void throwKanui() {
-    var kanui = kanuies.removeFirst();
-    kanui.component.position = component.position + Vector2(6, 0);
-    add(kanui);
+  throwKanui() async {
+    if (kanuies.isNotEmpty) {
+      var kanui = kanuies.removeFirst();
+      await parent?.add(kanui);
+      kanui.component.position = component.position;
+      kanui.body.linearVelocity.x = 30;
+    }
   }
 }
