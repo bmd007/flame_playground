@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:flame/components.dart';
 import 'package:flame_forge2d/flame_forge2d.dart';
 import 'package:flame_playground/my_girl_kanui.dart';
@@ -21,6 +23,7 @@ class MyGirl extends BodyComponent {
   JoystickComponent joystick;
   late Vector2 initialPosition;
   late SpriteAnimationComponent component;
+  Queue<MyGirlKanui> kanuies = Queue<MyGirlKanui>();
 
   MyGirl(Vector2 gameSize, this.joystick) {
     initialPosition = gameSize / 2;
@@ -88,7 +91,7 @@ class MyGirl extends BodyComponent {
     }
     if (!joystick.delta.isZero()) {
       move(dt);
-    } else if (landedSinceLastElevation){
+    } else if (landedSinceLastElevation) {
       body.linearVelocity.x = 0;
     }
   }
@@ -109,6 +112,11 @@ class MyGirl extends BodyComponent {
     add(component);
     camera.followBodyComponent(this, useCenterOfMass: false);
     camera.zoom = 15;
+
+    kanuies.add(MyGirlKanui(initialPosition));
+    kanuies.add(MyGirlKanui(initialPosition));
+    kanuies.add(MyGirlKanui(initialPosition));
+    kanuies.add(MyGirlKanui(initialPosition));
   }
 
   @override
@@ -119,4 +127,9 @@ class MyGirl extends BodyComponent {
     return world.createBody(bodyDefinition)..createFixture(fixtureDefinition);
   }
 
+  void throwKanui() {
+    var kanui = kanuies.removeFirst();
+    kanui.component.position = component.position + Vector2(6, 0);
+    add(kanui);
+  }
 }

@@ -49,7 +49,8 @@ class MyForge2DFlameGame extends Forge2DGame with HasDraggables, HasTappables {
           bottom: 150,
         ),
         onPressed: () {
-          world.bodies.where((element) => element.isBullet()).forEach((element) => element.linearVelocity.x = 30);
+          myGirl.throwKanui();
+          // world.bodies.where((element) => element.isBullet()).forEach((element) => element.linearVelocity.x = 30);
         });
 
     add(shapeButton);
