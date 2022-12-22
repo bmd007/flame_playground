@@ -3,7 +3,6 @@ import 'package:flame/game.dart';
 import 'package:flame/input.dart';
 import 'package:flame/palette.dart';
 import 'package:flame_forge2d/flame_forge2d.dart';
-import 'package:flame_playground/my_girl_kanui.dart';
 import 'package:flutter/material.dart';
 
 import 'boundary_creator.dart';
@@ -50,7 +49,6 @@ class MyForge2DFlameGame extends Forge2DGame with HasDraggables, HasTappables {
         ),
         onPressed: () async {
           await myGirl.throwKanui();
-          // world.bodies.where((element) => element.isBullet()).forEach((element) => element.linearVelocity.x = 30);
         });
 
     add(shapeButton);

@@ -130,7 +130,8 @@ class MyGirl extends BodyComponent {
   throwKanui() async {
     if (kanuies.isNotEmpty) {
       var kanui = kanuies.removeFirst();
-      await parent?.add(kanui);
+      // await parent?.add(kanui);
+      await add(kanui);
       kanui.component.position = component.position;
       kanui.body.linearVelocity.x = 30;
     }
