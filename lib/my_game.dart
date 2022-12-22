@@ -3,11 +3,11 @@ import 'package:flame/game.dart';
 import 'package:flame/input.dart';
 import 'package:flame/palette.dart';
 import 'package:flame_forge2d/flame_forge2d.dart';
+import 'package:flame_playground/enemy.dart';
 import 'package:flutter/material.dart';
 
 import 'boundary_creator.dart';
 import 'my_girl.dart';
-import 'my_platform.dart';
 
 class MyForge2DFlameGame extends Forge2DGame with HasDraggables, HasTappables {
   late final JoystickComponent joystickComponent;
@@ -19,11 +19,7 @@ class MyForge2DFlameGame extends Forge2DGame with HasDraggables, HasTappables {
     await super.onLoad();
     debugMode = false;
     var screenSize = screenToWorld(camera.viewport.effectiveSize);
-    print(screenSize);
-    addAll(createBoundaries(this));
-    for (double i = 0; i <= 95; i = i + 3) {
-      add(MyPlatform(Vector2(95 - i - i%2, 95 - i + i%3)));
-    }
+    addAll(createBoundaries(screenSize));
 
     final knobPaint = BasicPalette.red.withAlpha(200).paint();
     final backgroundPaint = BasicPalette.blue.withAlpha(100).paint();
@@ -52,5 +48,7 @@ class MyForge2DFlameGame extends Forge2DGame with HasDraggables, HasTappables {
         });
 
     add(shapeButton);
+
+    add(Enemy(screenSize/2 + Vector2(222, 0)));
   }
 }
