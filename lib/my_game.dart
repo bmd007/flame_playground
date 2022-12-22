@@ -14,12 +14,11 @@ class MyForge2DFlameGame extends Forge2DGame with HasDraggables, HasTappables {
   late final JoystickComponent joystickComponent;
   late final MyGirl myGirl;
   late final HudButtonComponent shapeButton;
-  late final MyGirlKanui myGirlKanui;
 
   @override
   Future<void> onLoad() async {
     await super.onLoad();
-    debugMode = false;
+    debugMode = true;
     var screenSize = screenToWorld(camera.viewport.effectiveSize);
     print(screenSize);
     addAll(createBoundaries(this));
@@ -34,7 +33,7 @@ class MyForge2DFlameGame extends Forge2DGame with HasDraggables, HasTappables {
       background: CircleComponent(radius: 60, paint: backgroundPaint),
       margin: const EdgeInsets.only(left: 40, bottom: 40),
     );
-    add(joystickComponent);
+    await add(joystickComponent);
 
     myGirl = MyGirl(screenSize, joystickComponent);
     add(myGirl);
@@ -50,14 +49,9 @@ class MyForge2DFlameGame extends Forge2DGame with HasDraggables, HasTappables {
           bottom: 150,
         ),
         onPressed: () {
-          myGirl.throwKanui();
           world.bodies.where((element) => element.isBullet()).forEach((element) => element.linearVelocity.x = 30);
         });
 
     add(shapeButton);
-
-    add(MyGirlKanui(screenSize/2));
-    add(MyGirlKanui(screenSize/2));
-    add(MyGirlKanui(screenSize/2));
   }
 }

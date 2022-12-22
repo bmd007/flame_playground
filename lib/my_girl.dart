@@ -119,18 +119,4 @@ class MyGirl extends BodyComponent {
     return world.createBody(bodyDefinition)..createFixture(fixtureDefinition);
   }
 
-  // late MyGirlKanui kanui;
-
-  void throwKanui() {
-    var initialKanuiPosition = lookingTowardRight
-        ? Vector2(center.x + (component.width / 2), center.y)
-        : Vector2(center.x - (component.width / 2), center.y);
-    var kanui = MyGirlKanui(initialKanuiPosition);
-    add(kanui)!.asStream().forEach((element) {
-      print(center);
-      print(kanui.center);
-      // var kanuiImpluse = lookingTowardRight ? Vector2(10, 0) : Vector2(-10, 0);
-      // kanui.body.linearVelocity = kanuiImpluse;
-    });
-  }
 }

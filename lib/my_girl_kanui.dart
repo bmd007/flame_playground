@@ -3,14 +3,14 @@ import 'package:flame_forge2d/flame_forge2d.dart';
 
 class MyGirlKanui extends BodyComponent {
   final Vector2 initialPosition;
-
+  late SpriteComponent component;
   MyGirlKanui(this.initialPosition);
 
   @override
   Future<void> onLoad() async {
     await super.onLoad();
     renderBody = false;
-    var component = SpriteComponent()
+    component = SpriteComponent()
       ..sprite = await gameRef.loadSprite("red_girl/Kunai.png", srcSize: Vector2(160, 32))
       ..size = Vector2(2,1)
       ..anchor = Anchor.center;
