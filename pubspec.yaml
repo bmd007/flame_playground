@@ -26,7 +26,6 @@ flutter:
   assets:
     - assets/images/
     - assets/images/red_girl/
-    - assets/images/freescifiplatform/
     - assets/images/TeamGunner/CHARACTER_SPRITES/Green/
     - assets/images/TeamGunner/EXTRAS/
     - assets/images/Tiles/
