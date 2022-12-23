@@ -2,7 +2,8 @@ import 'dart:collection';
 
 import 'package:flame/components.dart';
 import 'package:flame_forge2d/flame_forge2d.dart';
-import 'package:flame_playground/my_girl_kanui.dart';
+
+import 'my_girl_kanui.dart';
 
 class MyGirl extends BodyComponent {
   SpriteAnimationData glidingAnimationData =

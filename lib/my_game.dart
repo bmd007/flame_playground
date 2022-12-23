@@ -3,10 +3,10 @@ import 'package:flame/game.dart';
 import 'package:flame/input.dart';
 import 'package:flame/palette.dart';
 import 'package:flame_forge2d/flame_forge2d.dart';
-import 'package:flame_playground/enemy.dart';
 import 'package:flutter/material.dart';
 
 import 'boundary_creator.dart';
+import 'enemy.dart';
 import 'my_girl.dart';
 
 class MyForge2DFlameGame extends Forge2DGame with HasDraggables, HasTappables {

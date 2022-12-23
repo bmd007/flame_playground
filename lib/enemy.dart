@@ -2,7 +2,8 @@ import 'dart:math';
 
 import 'package:flame/components.dart';
 import 'package:flame_forge2d/flame_forge2d.dart';
-import 'package:flame_playground/bullet.dart';
+
+import 'bullet.dart';
 
 class Enemy extends BodyComponent {
   SpriteAnimationData runningAnimationDate =
