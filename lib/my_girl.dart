@@ -12,7 +12,7 @@ class MyGirl extends BodyComponent {
   SpriteAnimationData idleAnimationData =
       SpriteAnimationData.sequenced(amount: 9, stepTime: 0.03, textureSize: Vector2(290.0, 500.0));
   SpriteAnimationData jumpingAnimationData =
-  SpriteAnimationData.sequenced(amount: 9, stepTime: 0.03, textureSize: Vector2(399.0, 543.0));
+      SpriteAnimationData.sequenced(amount: 9, stepTime: 0.03, textureSize: Vector2(399.0, 543.0));
   late SpriteAnimation glidingAnimation;
   late SpriteAnimation runningAnimation;
   late SpriteAnimation idleAnimation;

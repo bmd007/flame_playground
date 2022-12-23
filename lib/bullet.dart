@@ -4,6 +4,7 @@ import 'package:flame_forge2d/flame_forge2d.dart';
 class Bullet extends BodyComponent {
   final Vector2 initialPosition;
   late SpriteComponent component;
+
   Bullet(this.initialPosition);
 
   @override
@@ -12,7 +13,7 @@ class Bullet extends BodyComponent {
     renderBody = false;
     component = SpriteComponent()
       ..sprite = await gameRef.loadSprite("TeamGunner/EXTRAS/BulletStream.png", srcSize: Vector2(80, 16))
-      ..size = Vector2(2,1)
+      ..size = Vector2(2, 1)
       ..anchor = Anchor.center;
     add(component);
   }
