@@ -169,7 +169,7 @@ class MyGirl extends BodyComponent with ContactCallbacks {
   @override
   void beginContact(Object other, Contact contact) {
     if (other is Bullet) {
-      life--;
+      life -= 20;
     }
   }
 }

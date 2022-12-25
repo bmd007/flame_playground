@@ -120,7 +120,7 @@ class Enemy extends BodyComponent with ContactCallbacks {
   @override
   Body createBody() {
     final shape = PolygonShape()..setAsBoxXY(2, 2);
-    final fixtureDefinition = FixtureDef(shape, density: 2, restitution: 0.1, friction: 2);
+    final fixtureDefinition = FixtureDef(shape, density: 2, restitution: 0.5, friction: 2);
     final bodyDefinition = BodyDef(position: initialPosition, type: BodyType.dynamic)
       ..fixedRotation = true
       ..userData = this;
@@ -128,13 +128,13 @@ class Enemy extends BodyComponent with ContactCallbacks {
   }
 
   shootBullet() async {
-    var positionDelta = lookingTowardRight ? Vector2(component.x + 3, 0) : Vector2(-component.x - 3, 0);
+    var positionDelta = lookingTowardRight ? Vector2(component.x + 4, 0) : Vector2(-component.x - 4, 0);
     Bullet bullet = Bullet(body.position + positionDelta);
     await parent?.add(bullet);
     if (!lookingTowardRight) {
       component.flipHorizontally();
     }
-    bullet.body.linearVelocity.x = lookingTowardRight ? 20 : -20;
+    bullet.body.linearVelocity.x = lookingTowardRight ? 40 : -40;
     bullet.body.linearVelocity.y = 0;
   }
   @override
