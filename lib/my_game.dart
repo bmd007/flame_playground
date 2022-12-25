@@ -4,6 +4,7 @@ import 'package:flame/input.dart';
 import 'package:flame/palette.dart';
 import 'package:flame_forge2d/flame_forge2d.dart';
 import 'package:flutter/material.dart';
+import 'package:flame_forge2d/contact_callbacks.dart';
 
 import 'boundary_creator.dart';
 import 'enemy.dart';
@@ -13,6 +14,7 @@ class MyForge2DFlameGame extends Forge2DGame with HasDraggables, HasTappables {
   late final JoystickComponent joystickComponent;
   late final MyGirl myGirl;
   late final HudButtonComponent shapeButton;
+
 
   @override
   Future<void> onLoad() async {
@@ -49,16 +51,7 @@ class MyForge2DFlameGame extends Forge2DGame with HasDraggables, HasTappables {
 
     add(shapeButton);
 
-    add(Enemy(screenSize / 2));
-    add(Enemy(screenSize / 2));
-    add(Enemy(screenSize / 2));
-    add(Enemy(screenSize / 2));
-    add(Enemy(screenSize / 2));
-    add(Enemy(screenSize / 2));
-    add(Enemy(screenSize / 2));
-    add(Enemy(screenSize / 2));
-    add(Enemy(screenSize / 2));
-    add(Enemy(screenSize / 2));
-    add(Enemy(screenSize / 2));
+    add(Enemy(screenSize / 1.5));
+    add(Enemy(screenSize / 2.5));
   }
 }
