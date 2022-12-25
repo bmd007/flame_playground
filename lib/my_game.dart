@@ -14,12 +14,11 @@ class MyForge2DFlameGame extends Forge2DGame with HasDraggables, HasTappables {
   late final JoystickComponent joystickComponent;
   late final MyGirl myGirl;
   late final HudButtonComponent shapeButton;
-  late TextComponent playerLifeIndicator;
 
-  // @override
-  // void update(double dt) {
-  //   super.update(dt);
-  // }
+  @override
+  void update(double dt) {
+    super.update(dt);
+  }
 
   @override
   Future<void> onLoad() async {
@@ -56,15 +55,7 @@ class MyForge2DFlameGame extends Forge2DGame with HasDraggables, HasTappables {
         });
     add(shootButton);
 
-    playerLifeIndicator = TextComponent()
-      ..size = Vector2(0.1, 0.1)
-      ..position = Vector2(screenSize.x / 2, screenSize.y - 10 )
-      ..textRenderer = TextPaint(style: TextStyle(color: BasicPalette.white.color))
-      ..text = myGirl.life.toString();
-
-    add(playerLifeIndicator);
-
-    add(Enemy(screenSize / 1.5));
+    add(Enemy(screenSize / 1.47));
     add(Enemy(screenSize / 2.5));
     add(MyPlatform(screenSize / 1.5));
     add(MyPlatform(screenSize / 2.5));
@@ -72,7 +63,7 @@ class MyForge2DFlameGame extends Forge2DGame with HasDraggables, HasTappables {
     add(Enemy(screenSize / 1.3));
     add(MyPlatform(screenSize / 1.3));
 
-    add(Enemy(screenSize/2.1));
+    add(Enemy(screenSize / 2.1));
     add(MyPlatform(screenSize / 1.05));
   }
 }
