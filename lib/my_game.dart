@@ -16,15 +16,11 @@ class MyForge2DFlameGame extends Forge2DGame with HasDraggables, HasTappables {
   late final HudButtonComponent shapeButton;
 
   @override
-  void update(double dt) {
-    super.update(dt);
-  }
-
-  @override
   Future<void> onLoad() async {
     await super.onLoad();
-    camera.zoom = 11;
+
     debugMode = false;
+
     var screenSize = screenToWorld(camera.viewport.effectiveSize);
     addAll(createBoundaries(screenSize));
 
@@ -65,5 +61,9 @@ class MyForge2DFlameGame extends Forge2DGame with HasDraggables, HasTappables {
 
     add(Enemy(screenSize / 2.1));
     add(MyPlatform(screenSize / 1.05));
+
+
+    camera.zoom = 6;
+    // camera.followBodyComponent(myGirl, useCenterOfMass: false);
   }
 }
