@@ -114,7 +114,6 @@ class MyGirl extends BodyComponent with ContactCallbacks {
       ..anchor = Anchor.center;
     add(component);
     camera.followBodyComponent(this, useCenterOfMass: false);
-    camera.zoom = 10;
 
     kanuies.add(MyGirlKanui());
     kanuies.add(MyGirlKanui());
