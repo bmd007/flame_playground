@@ -3,9 +3,9 @@ import 'dart:math';
 
 import 'package:flame/components.dart';
 import 'package:flame_forge2d/flame_forge2d.dart';
-import 'package:flame_playground/my_girl_kanui.dart';
 
 import 'bullet.dart';
+import 'my_girl_kanui.dart';
 
 class Enemy extends BodyComponent with ContactCallbacks {
   SpriteAnimationData runningAnimationDate =
