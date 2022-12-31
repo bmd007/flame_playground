@@ -1,4 +1,4 @@
-name: Flutter CI
+name: Flutter web to Firebase deployment
 
 on:
   push:
@@ -32,7 +32,7 @@ jobs:
           cp -r ./build/web/* ./firebase/public/
           ls ./firebase/public/
 
-      - name: Deploy to firebase
+      - name: Deploy to firebase live channel
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
