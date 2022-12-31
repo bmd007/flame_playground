@@ -1,0 +1,42 @@
+name: Flutter CI
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.3.10'
+          channel: 'stable'
+
+      - name: flutter version
+        run: flutter --version
+
+      - name: flutter doctor
+        run: flutter doctor
+
+      - name: flutter pub get
+        run: flutter pub get
+
+      - name: flutter build web
+        run: flutter build web --release
+
+      - name: copy from flutter build to firebase folder
+        run: |
+          cp -r ./build/web/* ./firebase/public/
+          ls ./firebase/public/
+
+      - name: Deploy to firebase
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_WONDERLAND_007 }}'
+          projectId: wonderland-007
+          entryPoint: ./firebase
+          channelId: live
