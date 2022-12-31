@@ -33,5 +33,4 @@ class Bullet extends BodyComponent with ContactCallbacks {
   void beginContact(Object other, Contact contact) {
     removeFromParent();
   }
-
 }

@@ -40,3 +40,4 @@ jobs:
           projectId: wonderland-007
           entryPoint: ./firebase
           channelId: live
+
