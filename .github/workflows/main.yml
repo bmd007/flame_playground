@@ -41,3 +41,15 @@ jobs:
           entryPoint: ./firebase
           channelId: live
 
+      - name: flutter build apk
+        uses: subosito/flutter-action@v2
+        run: flutter build apk
+
+      - name: release apk
+        uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          prerelease: true
+          title: "Development Build"
+          files: |
+            build/app/outputs/apk/release/app-release.apk
