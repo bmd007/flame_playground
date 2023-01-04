@@ -25,12 +25,12 @@ class MyForge2DFlameGame extends Forge2DGame with HasDraggables, HasTappables {
     final backgroundPaint = BasicPalette.blue.withAlpha(100).paint();
     joystickComponent = JoystickComponent(
       knob: CircleComponent(radius: 20, paint: knobPaint),
-      background: CircleComponent(radius: 60, paint: backgroundPaint),
-      margin: const EdgeInsets.only(left: 30, bottom: 20),
+      background: CircleComponent(radius: 45, paint: backgroundPaint),
+      margin: const EdgeInsets.only(left: 50, bottom: 50),
     )..positionType = PositionType.viewport;
     await add(joystickComponent);
 
-    myGirl = MyGirl(joystickComponent, size / 2);
+    myGirl = MyGirl(joystickComponent, size / 2.5);
     await add(myGirl);
 
     final shootButton = HudButtonComponent(
@@ -58,16 +58,21 @@ class MyForge2DFlameGame extends Forge2DGame with HasDraggables, HasTappables {
     await add(playerLifeIndicator);
     myGirl.playerLife.addListener(() => playerLifeIndicator.text = "lives: ${myGirl.playerLife.value}");
 
-    add(Enemy(size / 1.47));
     add(Enemy(size / 2.5));
-    add(MyPlatform(size / 1.5));
+    add(Enemy(size / 2.5));
+    add(Enemy(size / 2.5));
+    add(Enemy(size / 2.5));
+    add(Enemy(size / 2.5));
+    add(Enemy(size / 2.5));
+    add(Enemy(size / 2.5));
+    add(Enemy(size / 2.5));
+    add(Enemy(size / 2.5));
+    add(Enemy(size / 2.5));
+    add(Enemy(size / 2.5));
     add(MyPlatform(size / 2.5));
-
-    add(Enemy(size / 1.3));
-    add(MyPlatform(size / 1.3));
-
+    add(MyPlatform(size / 2.3));
+    add(MyPlatform(size / 2.1));
     add(Enemy(size / 2.1));
-    add(MyPlatform(size / 1.05));
 
     // camera.viewport = FixedResolutionViewport(Vector2.all(maxSide));
     var bottom = size.y;

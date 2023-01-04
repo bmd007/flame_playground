@@ -114,7 +114,7 @@ class Enemy extends BodyComponent with ContactCallbacks {
   @override
   Future<void> onLoad() async {
     await super.onLoad();
-    renderBody = false;
+    renderBody = true;
     runningAnimation = await gameRef.loadSpriteAnimation(
         "TeamGunner/CHARACTER_SPRITES/Green/Gunner_Green_Run.png", runningAnimationDate);
     idleAnimation = await gameRef.loadSpriteAnimation(
