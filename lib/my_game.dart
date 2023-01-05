@@ -15,6 +15,7 @@ class MyForge2DFlameGame extends Forge2DGame with HasDraggables, HasTappables {
   late final MyGirl myGirl;
   late final HudButtonComponent shapeButton;
   late final TextComponent playerLifeIndicator;
+  late final TextComponent numberOfKanuies;
 
   @override
   Future<void> onLoad() async {
@@ -54,9 +55,23 @@ class MyForge2DFlameGame extends Forge2DGame with HasDraggables, HasTappables {
       ..positionType = PositionType.viewport
       ..anchor = Anchor.bottomCenter
       ..position = Vector2(size.x, size.y)
-      ..textRenderer = TextPaint(style: TextStyle(color: BasicPalette.white.color, fontSize: 20));
+      ..textRenderer = TextPaint(
+          style: TextStyle(color: BasicPalette.white.color, fontSize: 20));
     await add(playerLifeIndicator);
-    myGirl.playerLife.addListener(() => playerLifeIndicator.text = "lives: ${myGirl.playerLife.value}");
+    myGirl.playerLife.addListener(
+        () => playerLifeIndicator.text = "lives: ${myGirl.playerLife.value}");
+
+    numberOfKanuies = TextComponent()
+      ..size = Vector2(0.1, 0.1)
+      ..positionType = PositionType.viewport
+      ..anchor = Anchor.bottomCenter
+      ..position = Vector2(size.x, size.y + 100)
+      ..textRenderer = TextPaint(
+          style: TextStyle(color: BasicPalette.white.color, fontSize: 20));
+    numberOfKanuies.text = "kanuies: ${myGirl.kanuies.value}";
+    await add(numberOfKanuies);
+    myGirl.kanuies.addListener(
+        () => numberOfKanuies.text = "kanuies: ${myGirl.kanuies.value}");
 
     add(Enemy(size / 2.5));
     add(Enemy(size / 2.5));
@@ -64,17 +79,12 @@ class MyForge2DFlameGame extends Forge2DGame with HasDraggables, HasTappables {
     add(Enemy(size / 2.5));
     add(Enemy(size / 2.5));
     add(Enemy(size / 2.5));
-    add(Enemy(size / 2.5));
-    add(Enemy(size / 2.5));
-    add(Enemy(size / 2.5));
-    add(Enemy(size / 2.5));
-    add(Enemy(size / 2.5));
-    add(MyPlatform(size / 2.5));
-    add(MyPlatform(size / 2.3));
-    add(MyPlatform(size / 2.1));
-    add(Enemy(size / 2.1));
+    add(MyPlatform(size / 1.1));
+    add(MyPlatform(size / 1.2));
+    add(MyPlatform(size / 1.3));
+    add(MyPlatform(size / 1.4));
+    add(MyPlatform(size / 1.5));//put a kanuie pack on top of this platform
 
-    // camera.viewport = FixedResolutionViewport(Vector2.all(maxSide));
     var bottom = size.y;
     var right = size.x + 100;
     final Vector2 topLeft = Vector2.zero();

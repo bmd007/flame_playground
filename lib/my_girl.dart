@@ -26,8 +26,8 @@ class MyGirl<MyForge2DFlameGame> extends BodyComponent with ContactCallbacks {
   final JoystickComponent joystick;
   final Vector2 initialPosition;
   late SpriteAnimationComponent component;
-  Queue<MyGirlKanui> kanuies = Queue<MyGirlKanui>();
   final playerLife = ValueNotifier<int>(100);
+  final kanuies = ValueNotifier<int>(30);
 
   MyGirl(this.joystick, this.initialPosition);
 
@@ -115,31 +115,6 @@ class MyGirl<MyForge2DFlameGame> extends BodyComponent with ContactCallbacks {
       ..size = Vector2.all(6)
       ..anchor = Anchor.center;
     add(component);
-
-    kanuies.add(MyGirlKanui());
-    kanuies.add(MyGirlKanui());
-    kanuies.add(MyGirlKanui());
-    kanuies.add(MyGirlKanui());
-    kanuies.add(MyGirlKanui());
-    kanuies.add(MyGirlKanui());
-    kanuies.add(MyGirlKanui());
-    kanuies.add(MyGirlKanui());
-    kanuies.add(MyGirlKanui());
-    kanuies.add(MyGirlKanui());
-    kanuies.add(MyGirlKanui());
-    kanuies.add(MyGirlKanui());
-    kanuies.add(MyGirlKanui());
-    kanuies.add(MyGirlKanui());
-    kanuies.add(MyGirlKanui());
-    kanuies.add(MyGirlKanui());
-    kanuies.add(MyGirlKanui());
-    kanuies.add(MyGirlKanui());
-    kanuies.add(MyGirlKanui());
-    kanuies.add(MyGirlKanui());
-    kanuies.add(MyGirlKanui());
-    kanuies.add(MyGirlKanui());
-    kanuies.add(MyGirlKanui());
-    kanuies.add(MyGirlKanui());
   }
 
   @override
@@ -153,8 +128,9 @@ class MyGirl<MyForge2DFlameGame> extends BodyComponent with ContactCallbacks {
   }
 
   throwKanui() async {
-    if (kanuies.isNotEmpty) {
-      var kanui = kanuies.removeFirst();
+    if (kanuies.value > 0) {
+      kanuies.value = kanuies.value - 1;
+      var kanui = MyGirlKanui();
       var positionDelta = lookingTowardRight ? Vector2(component.x + 5, 0) : Vector2(-component.x - 5, 0);
       kanui.initialPosition = body.position + positionDelta;
       await parent?.add(kanui);
