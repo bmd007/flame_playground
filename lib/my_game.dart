@@ -83,15 +83,15 @@ class MyForge2DFlameGame extends Forge2DGame with HasDraggables, HasTappables {
     add(MyPlatform(size / 1.2));
     add(MyPlatform(size / 1.3));
     add(MyPlatform(size / 1.4));
-    add(MyPlatform(size / 1.5));//put a kanuie pack on top of this platform
+    add(MyPlatform(size / 1.5)); //put a kanuie pack on top of this platform
 
     camera.viewport = FixedResolutionViewport(Vector2(1366, 768));
     var bottom = size.y;
     var right = size.x + 100;
-    final Vector2 topLeft = Vector2.zero();
-    final Vector2 bottomLeft = Vector2(0, bottom);
-    final Vector2 bottomRight = Vector2(right, bottom);
-    final Vector2 topRight = Vector2(right, 0);
+    final Vector2 topLeft = Vector2.zero() + Vector2(0, 10);
+    final Vector2 topRight = Vector2(right, 10);
+    final Vector2 bottomLeft = Vector2(0, bottom) + Vector2(0, -10);
+    final Vector2 bottomRight = Vector2(right, bottom) + Vector2(0, -10);
     add(Wall(topLeft, topRight));
     add(Wall(topRight, bottomRight));
     add(Wall(bottomLeft, topLeft));
