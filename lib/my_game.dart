@@ -25,8 +25,8 @@ class MyForge2DFlameGame extends Forge2DGame with HasDraggables, HasTappables {
     final knobPaint = BasicPalette.red.withAlpha(200).paint();
     final backgroundPaint = BasicPalette.blue.withAlpha(100).paint();
     joystickComponent = JoystickComponent(
-      knob: CircleComponent(radius: 20, paint: knobPaint),
-      background: CircleComponent(radius: 45, paint: backgroundPaint),
+      knob: CircleComponent(radius: 30, paint: knobPaint),
+      background: CircleComponent(radius: 70, paint: backgroundPaint),
       margin: const EdgeInsets.only(left: 50, bottom: 50),
     )..positionType = PositionType.viewport;
     await add(joystickComponent);
@@ -35,14 +35,14 @@ class MyForge2DFlameGame extends Forge2DGame with HasDraggables, HasTappables {
     await add(myGirl);
 
     final shootButton = HudButtonComponent(
-        button: CircleComponent(radius: 20),
+        button: CircleComponent(radius: 30),
         buttonDown: RectangleComponent(
-          size: Vector2(10, 10),
+          size: Vector2(100, 100),
           paint: BasicPalette.blue.paint(),
         ),
         margin: const EdgeInsets.only(
-          right: 80,
-          bottom: 80,
+          right: 40,
+          bottom: 40,
         ),
         onPressed: () async {
           await myGirl.throwKanui();
@@ -83,14 +83,15 @@ class MyForge2DFlameGame extends Forge2DGame with HasDraggables, HasTappables {
     add(MyPlatform(size / 1.2));
     add(MyPlatform(size / 1.3));
     add(MyPlatform(size / 1.4));
-    add(MyPlatform(size / 1.5));//put a kanuie pack on top of this platform
+    add(MyPlatform(size / 1.5)); //put a kanuie pack on top of this platform
 
+    camera.viewport = FixedResolutionViewport(Vector2(1366, 768));
     var bottom = size.y;
     var right = size.x + 100;
-    final Vector2 topLeft = Vector2.zero();
-    final Vector2 bottomLeft = Vector2(0, bottom);
-    final Vector2 bottomRight = Vector2(right, bottom);
-    final Vector2 topRight = Vector2(right, 0);
+    final Vector2 topLeft = Vector2.zero() + Vector2(0, 10);
+    final Vector2 topRight = Vector2(right, 10);
+    final Vector2 bottomLeft = Vector2(0, bottom) + Vector2(0, -10);
+    final Vector2 bottomRight = Vector2(right, bottom) + Vector2(0, -10);
     add(Wall(topLeft, topRight));
     add(Wall(topRight, bottomRight));
     add(Wall(bottomLeft, topLeft));
