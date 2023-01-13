@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 
 import 'enemy.dart';
 import 'my_girl.dart';
-import 'my_platform.dart';
 import 'wall.dart';
 
 class MyForge2DFlameGame extends Forge2DGame with HasDraggables, HasTappables {
@@ -27,7 +26,7 @@ class MyForge2DFlameGame extends Forge2DGame with HasDraggables, HasTappables {
     joystickComponent = JoystickComponent(
       knob: CircleComponent(radius: 30, paint: knobPaint),
       background: CircleComponent(radius: 70, paint: backgroundPaint),
-      margin: const EdgeInsets.only(left: 50, bottom: 50),
+      margin: const EdgeInsets.only(left: 50, bottom: 100),
     )..positionType = PositionType.viewport;
     await add(joystickComponent);
 
@@ -41,8 +40,8 @@ class MyForge2DFlameGame extends Forge2DGame with HasDraggables, HasTappables {
           paint: BasicPalette.blue.paint(),
         ),
         margin: const EdgeInsets.only(
-          right: 40,
-          bottom: 40,
+          right: 50,
+          bottom: 130,
         ),
         onPressed: () async {
           await myGirl.throwKanui();
@@ -79,19 +78,14 @@ class MyForge2DFlameGame extends Forge2DGame with HasDraggables, HasTappables {
     add(Enemy(size / 2.5));
     add(Enemy(size / 2.5));
     add(Enemy(size / 2.5));
-    add(MyPlatform(size / 1.1));
-    add(MyPlatform(size / 1.2));
-    add(MyPlatform(size / 1.3));
-    add(MyPlatform(size / 1.4));
-    add(MyPlatform(size / 1.5)); //put a kanuie pack on top of this platform
 
     camera.viewport = FixedResolutionViewport(Vector2(1366, 768));
     var bottom = size.y;
     var right = size.x + 100;
-    final Vector2 topLeft = Vector2.zero() + Vector2(0, 10);
-    final Vector2 topRight = Vector2(right, 10);
-    final Vector2 bottomLeft = Vector2(0, bottom) + Vector2(0, -10);
-    final Vector2 bottomRight = Vector2(right, bottom) + Vector2(0, -10);
+    final Vector2 topLeft = Vector2.zero() + Vector2(3, 3);
+    final Vector2 topRight = Vector2(right, 0) + Vector2(-3, 3);
+    final Vector2 bottomLeft = Vector2(0, bottom) + Vector2(3, -3);
+    final Vector2 bottomRight = Vector2(right, bottom) + Vector2(-3, -3);
     add(Wall(topLeft, topRight));
     add(Wall(topRight, bottomRight));
     add(Wall(bottomLeft, topLeft));
