@@ -103,7 +103,7 @@ class MyGirl<MyForge2DFlameGame> extends BodyComponent with ContactCallbacks {
   @override
   Future<void> onLoad() async {
     await super.onLoad();
-    renderBody = true;
+    renderBody = false;
     glidingAnimation = await gameRef.loadSpriteAnimation("red_girl/gliding_spriteSheet.png", glidingAnimationData);
     runningAnimation = await gameRef.loadSpriteAnimation("red_girl/running_spriteSheet.png", runningAnimationDate);
     idleAnimation = await gameRef.loadSpriteAnimation("red_girl/idle_spriteSheet.png", idleAnimationData);

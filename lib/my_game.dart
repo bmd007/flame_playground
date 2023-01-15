@@ -21,6 +21,26 @@ class MyForge2DFlameGame extends Forge2DGame with HasDraggables, HasTappables {
     await super.onLoad();
     debugMode = false;
 
+    camera.viewport = FixedResolutionViewport(Vector2(1366, 768));
+    var right = size.x + 100;
+    var bottom = size.y;
+    final Vector2 topLeft = Vector2.zero() + Vector2(5, 5);
+    final Vector2 topRight = Vector2(right, 0) + Vector2(-5, 5);
+    final Vector2 bottomLeft = Vector2(0, bottom) + Vector2(5, -5);
+    final Vector2 bottomRight = Vector2(right, bottom) + Vector2(-5, -5);
+    add(Wall(topLeft, topRight));
+    add(Wall(topRight, bottomRight));
+    add(Wall(bottomLeft, topLeft));
+    add(Wall(bottomRight, bottomLeft));
+    camera.worldBounds = Rect.fromLTRB(0, 0, right, bottom);
+
+    SpriteComponent background = SpriteComponent()
+      ..sprite = await loadSprite("background.jpeg")
+      ..position = Vector2(5, 5)
+      ..size = Vector2(right - 10, bottom - 10)
+      ..anchor = Anchor.topLeft;
+    add(background);
+
     final knobPaint = BasicPalette.red.withAlpha(200).paint();
     final backgroundPaint = BasicPalette.blue.withAlpha(100).paint();
     joystickComponent = JoystickComponent(
@@ -32,6 +52,7 @@ class MyForge2DFlameGame extends Forge2DGame with HasDraggables, HasTappables {
 
     myGirl = MyGirl(joystickComponent, size / 2.5);
     await add(myGirl);
+    camera.followBodyComponent(myGirl, useCenterOfMass: true);
 
     final shootButton = HudButtonComponent(
         button: CircleComponent(radius: 30),
@@ -78,19 +99,5 @@ class MyForge2DFlameGame extends Forge2DGame with HasDraggables, HasTappables {
     add(Enemy(size / 2.5));
     add(Enemy(size / 2.5));
     add(Enemy(size / 2.5));
-
-    camera.viewport = FixedResolutionViewport(Vector2(1366, 768));
-    var bottom = size.y;
-    var right = size.x + 100;
-    final Vector2 topLeft = Vector2.zero() + Vector2(3, 3);
-    final Vector2 topRight = Vector2(right, 0) + Vector2(-3, 3);
-    final Vector2 bottomLeft = Vector2(0, bottom) + Vector2(3, -3);
-    final Vector2 bottomRight = Vector2(right, bottom) + Vector2(-3, -3);
-    add(Wall(topLeft, topRight));
-    add(Wall(topRight, bottomRight));
-    add(Wall(bottomLeft, topLeft));
-    add(Wall(bottomRight, bottomLeft));
-    camera.followBodyComponent(myGirl, useCenterOfMass: true);
-    camera.worldBounds = Rect.fromLTRB(0, 0, right, bottom);
   }
 }

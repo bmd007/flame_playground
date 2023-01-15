@@ -10,11 +10,11 @@ class MyPlatform extends BodyComponent {
   Future<void> onLoad() async {
     await super.onLoad();
     renderBody = true;
-    var girlAnimation = SpriteComponent()
+    var wall = SpriteComponent()
       ..sprite = await gameRef.loadSprite("Tiles/Tile_13.png")
       ..size = Vector2(10, 1)
       ..anchor = Anchor.topCenter;
-    add(girlAnimation);
+    add(wall);
   }
 
   @override
