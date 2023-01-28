@@ -1,12 +1,7 @@
-import 'dart:collection';
 import 'dart:math';
 
 import 'package:flame/components.dart';
 import 'package:flame_forge2d/flame_forge2d.dart';
-import 'package:flutter/foundation.dart';
-
-import 'bullet.dart';
-import 'my_girl_kanui.dart';
 
 class Mahdi<MyForge2DFlameGame> extends BodyComponent with ContactCallbacks {
   bool lookingTowardRight = true;
