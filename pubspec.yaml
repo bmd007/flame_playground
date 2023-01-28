@@ -11,25 +11,25 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_icons: ^1.0.2
-  flame: ^1.5.0
-  flame_forge2d: ^0.12.4
+  cupertino_icons: ^1.0.5
+  flame: ^1.6.0
+  flame_forge2d: ^0.12.5
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.0
+  flutter_lints: ^2.0.1
 
 flutter:
   uses-material-design: true
 
   assets:
     - assets/images/
-    - assets/images/red_girl/
-    - assets/images/TeamGunner/CHARACTER_SPRITES/Green/
-    - assets/images/TeamGunner/EXTRAS/
+    - assets/images/mahdi/
     - assets/images/Tiles/
-    - assets/images/Objects/
+    - assets/images/red_girl/
+    - assets/images/TeamGunner/EXTRAS/
+    - assets/images/TeamGunner/CHARACTER_SPRITES/Green/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

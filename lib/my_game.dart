@@ -3,6 +3,7 @@ import 'package:flame/game.dart';
 import 'package:flame/input.dart';
 import 'package:flame/palette.dart';
 import 'package:flame_forge2d/flame_forge2d.dart';
+import 'package:flame_playground/mahdi.dart';
 import 'package:flutter/material.dart';
 
 import 'enemy.dart';
@@ -99,5 +100,6 @@ class MyForge2DFlameGame extends Forge2DGame with HasDraggables, HasTappables {
     add(Enemy(size / 2.5));
     add(Enemy(size / 2.5));
     add(Enemy(size / 2.5));
+    add(Mahdi(size / 6));
   }
 }

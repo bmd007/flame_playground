@@ -9,7 +9,7 @@ class MyPlatform extends BodyComponent {
   @override
   Future<void> onLoad() async {
     await super.onLoad();
-    renderBody = true;
+    renderBody = false;
     var wall = SpriteComponent()
       ..sprite = await gameRef.loadSprite("Tiles/Tile_13.png")
       ..size = Vector2(10, 1)
